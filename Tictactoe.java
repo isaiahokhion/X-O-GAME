@@ -148,3 +148,52 @@ public class Tictactoe {
         frame.add(controlJPanel, BorderLayout.SOUTH);
 
         for (int r = 0; r < 3; r++) {
+            for (int c = 0; c < 3; c++) {
+                JButton tile = new JButton();
+                board[r][c] = tile;
+                boardPanel.add(tile);
+
+                tile.setBackground(new Color(60, 60, 60));
+                tile.setForeground(Color.WHITE);
+                tile.setFont(new Font("Arial", Font.BOLD, 100));
+                tile.setFocusPainted(false);
+                tile.setUI(new BasicButtonUI());
+
+                tile.addActionListener(e -> {
+                    if (gameOver) return;
+                    JButton source = (JButton) e.getSource();
+                    if (source.getText().equals("")) {
+                        source.setText(currentPlayer);
+                        turns++;
+                        checkWinner();
+                        if (!gameOver) {
+                            currentPlayer = currentPlayer.equals(playerX) ? playerO : playerX;
+                            String nameTurn = currentPlayer.equals(playerX) ? player1Name : player2Name;
+                            textLabel.setText(nameTurn + "'s Turn (" + currentPlayer + ")");
+                        }
+                    }
+                });
+            }
+        }
+    }
+
+    void checkWinner() {
+        for (int r = 0; r < 3; r++) {
+            if (board[r][0].getText().equals("")) continue;
+            if (board[r][0].getText().equals(board[r][1].getText()) &&
+                board[r][1].getText().equals(board[r][2].getText())) {
+                for (int i = 0; i < 3; i++) setWinner(board[r][i]);
+                gameOver = true;
+                return;
+            }
+        }
+
+        for (int c = 0; c < 3; c++) {
+            if (board[0][c].getText().equals("")) continue;
+            if (board[0][c].getText().equals(board[1][c].getText()) &&
+                board[1][c].getText().equals(board[2][c].getText())) {
+                for (int i = 0; i < 3; i++) setWinner(board[i][c]);
+                gameOver = true;
+                return;
+            }
+        }
