@@ -197,3 +197,60 @@ public class Tictactoe {
                 return;
             }
         }
+
+        if (board[0][0].getText().equals(board[1][1].getText()) &&
+            board[1][1].getText().equals(board[2][2].getText()) &&
+            !board[0][0].getText().equals("")) {
+            for (int i = 0; i < 3; i++) setWinner(board[i][i]);
+            gameOver = true;
+            return;
+        }
+
+        if (board[0][2].getText().equals(board[1][1].getText()) &&
+            board[1][1].getText().equals(board[2][0].getText()) &&
+            !board[0][2].getText().equals("")) {
+            setWinner(board[0][2]);
+            setWinner(board[1][1]);
+            setWinner(board[2][0]);
+            gameOver = true;
+            return;
+        }
+
+        if (turns == 9) {
+            for (int r = 0; r < 3; r++)
+                for (int c = 0; c < 3; c++)
+                    setTie(board[r][c]);
+            gameOver = true;
+        }
+    }
+
+    void setWinner(JButton tile) {
+        tile.setForeground(Color.BLACK);
+        tile.setBackground(Color.GREEN);
+        String winnerName = currentPlayer.equals(playerX) ? player1Name : player2Name;
+        textLabel.setText("🏆 " + winnerName + " wins!");
+    }
+
+    void setTie(JButton tile) {
+        tile.setForeground(Color.ORANGE);
+        tile.setBackground(Color.GRAY);
+        textLabel.setText("🤝 It's a Tie!");
+    }
+
+    void resetGame() {
+        currentPlayer = playerX;
+        turns = 0;
+        gameOver = false;
+        textLabel.setText(player1Name + "'s Turn (X)");
+
+        for (int r = 0; r < 3; r++) {
+            for (int c = 0; c < 3; c++) {
+                board[r][c].setText("");
+                board[r][c].setBackground(new Color(60, 60, 60));
+                board[r][c].setForeground(Color.WHITE);
+            }
+        }
+    }
+}
+
+    
