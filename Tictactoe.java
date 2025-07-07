@@ -98,3 +98,53 @@ public class Tictactoe {
             String name1 = player1Field.getText().trim();
             String name2 = player2Field.getText().trim();
 
+                    if (!name1.isEmpty()) player1Name = name1;
+            if (!name2.isEmpty()) player2Name = name2;
+
+            nameFrame.dispose();
+            setupGameUI();
+        });
+
+        nameFrame.add(inputPanel, BorderLayout.CENTER);
+        nameFrame.add(continueButton, BorderLayout.SOUTH);
+        nameFrame.setVisible(true);
+    }
+
+    void setupGameUI() {
+        frame.setVisible(true);
+        frame.setSize(boardWidth, boardHeight);
+        frame.setLocationRelativeTo(null);
+        frame.setResizable(false);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setLayout(new BorderLayout());
+
+        textLabel.setBackground(new Color(45, 45, 45));
+        textLabel.setForeground(Color.WHITE);
+        textLabel.setFont(new Font("SansSerif", Font.BOLD, 36));
+        textLabel.setHorizontalAlignment(JLabel.CENTER);
+        textLabel.setText(player1Name + "'s Turn (X)");
+        textLabel.setOpaque(true);
+
+        textPanel.setLayout(new BorderLayout());
+        textPanel.add(textLabel);
+        frame.add(textPanel, BorderLayout.NORTH);
+
+        boardPanel.setLayout(new GridLayout(3, 3, 5, 5));
+        boardPanel.setBackground(new Color(25, 25, 25));
+        boardPanel.setBorder(new EmptyBorder(10, 10, 10, 10));
+        frame.add(boardPanel, BorderLayout.CENTER);
+
+        controlJPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
+        controlJPanel.setBackground(new Color(30, 30, 30));
+
+        restartButton.setFont(new Font("Arial", Font.BOLD, 16));
+        restartButton.setBackground(new Color(200, 50, 50));
+        restartButton.setForeground(Color.WHITE);
+        restartButton.setFocusPainted(false);
+        restartButton.setUI(new BasicButtonUI());
+        restartButton.addActionListener(e -> resetGame());
+
+        controlJPanel.add(restartButton);
+        frame.add(controlJPanel, BorderLayout.SOUTH);
+
+        for (int r = 0; r < 3; r++) {
