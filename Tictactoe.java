@@ -48,3 +48,53 @@ public class Tictactoe {
         startButton.setFont(new Font("Arial", Font.BOLD, 20));
         startButton.setBackground(new Color(70, 130, 180));
         startButton.setForeground(Color.WHITE);
+                startButton.setFocusPainted(false);
+
+        startButton.addActionListener(e -> {
+            welcomeFrame.dispose();
+            showNameInputScreen(); // ✅ Go to name input next
+        });
+
+        welcomeFrame.add(welcomeLabel, BorderLayout.CENTER);
+        welcomeFrame.add(startButton, BorderLayout.SOUTH);
+        welcomeFrame.setVisible(true);
+    }
+
+    void showNameInputScreen() {
+        JFrame nameFrame = new JFrame("Enter Player Names");
+        nameFrame.setSize(400, 300);
+        nameFrame.setLocationRelativeTo(null);
+        nameFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        nameFrame.setLayout(new BorderLayout(10, 10));
+        nameFrame.getContentPane().setBackground(new Color(30, 30, 30));
+
+        JPanel inputPanel = new JPanel(new GridLayout(4, 1, 10, 10));
+        inputPanel.setBackground(new Color(30, 30, 30));
+        inputPanel.setBorder(new EmptyBorder(20, 40, 20, 40));
+
+        JTextField player1Field = new JTextField();
+        JTextField player2Field = new JTextField();
+
+        player1Field.setFont(new Font("Arial", Font.PLAIN, 18));
+        player2Field.setFont(new Font("Arial", Font.PLAIN, 18));
+
+        JLabel label1 = new JLabel("Enter Player 1 Name (X):");
+        label1.setForeground(Color.WHITE);
+        JLabel label2 = new JLabel("Enter Player 2 Name (O):");
+        label2.setForeground(Color.WHITE);
+
+        inputPanel.add(label1);
+        inputPanel.add(player1Field);
+        inputPanel.add(label2);
+        inputPanel.add(player2Field);
+
+        JButton continueButton = new JButton("Continue");
+        continueButton.setFont(new Font("Arial", Font.BOLD, 18));
+        continueButton.setBackground(new Color(60, 150, 80));
+        continueButton.setForeground(Color.WHITE);
+        continueButton.setFocusPainted(false);
+
+        continueButton.addActionListener(e -> {
+            String name1 = player1Field.getText().trim();
+            String name2 = player2Field.getText().trim();
+
