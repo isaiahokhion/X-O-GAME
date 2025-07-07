@@ -52,7 +52,7 @@ public class Tictactoe {
 
         startButton.addActionListener(e -> {
             welcomeFrame.dispose();
-            showNameInputScreen(); // ✅ Go to name input next
+            showNameInputScreen(); 
         });
 
         welcomeFrame.add(welcomeLabel, BorderLayout.CENTER);
